@@ -97,6 +97,10 @@ Make the react app which will use all these different api endpoints
 
    1. mkdir server
    2. go into server folder and run `npm init -y`
-   3. yarn add express nodemon knex pg
+   3. install the following dependencies
+
+```bash
+yarn add express nodemon knex pg
+```
 
 2. resources folder will have several more instructions to get started (regarding table creation and database hookup)
