@@ -79,7 +79,7 @@ Make the react app which will use all these different api endpoints
 2. then move on to login/signup
 3. then adjust your routes to only allow a user to delete their own routes (will explain tomorrow on Friday)
 
-I will be providing the authentication portion of the app - for now I want your to do the following steps:
+## I will be providing the authentication portion of the app - for now I want you to do the following steps:
 
 1. create a react app called client
 
