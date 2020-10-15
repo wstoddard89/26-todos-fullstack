@@ -109,6 +109,14 @@ Make the react app which will use all these different api endpoints
 yarn add nodemon express knex pg
 ```
 
+- update the scripts section in package.json to execute nodemon on your app.js file (assuming you have server setup)
+
+```json
+"scripts": {
+    "start": "nodemon app.js"
+  }
+```
+
 ### Make the file to run both express and react app
 
 - outside of client and server folder
