@@ -93,7 +93,7 @@ Make the react app which will use all these different api endpoints
 
 `npx create-react-app client --template redux`
 
-2. Install the following dependencies
+2. Install the following dependencies (in client folder)
 
 `yarn add axios react-router react-router-dom`
 
@@ -106,7 +106,25 @@ Make the react app which will use all these different api endpoints
    3. install the following dependencies
 
 ```bash
-yarn add express nodemon knex pg
+yarn add nodemon express knex pg
+```
+
+### Make the file to run both express and react app
+
+- outside of client and server folder
+
+`npm init -y`
+
+`yarn add concurrently`
+
+- update the package.json to include the following in the scripts section
+
+```json
+"scripts": {
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "start": "concurrently \"npm run client\" \"npm run server\""
+  }
 ```
 
 2. resources folder will have several more instructions to get started (regarding table creation and database hookup)
