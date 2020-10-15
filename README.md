@@ -34,3 +34,61 @@ UPDATE
 POST
 
 /api/todos
+
+# Below is an opionated list of how to approach this
+
+# Phase 0: Planning
+
+- what tables does your todo app need? (you will need two tables - )
+
+## Phase 1: Optional but a good first step
+
+Create a mock api (fake placeholder data) for all the routes using an array in memory.
+
+A short example can be seen below
+
+```js
+const todos = []
+app.get('/api/todos', (req, res) => {
+  res.json(todos)
+})
+
+app.post('/api/todos', (req, res) => {
+  todos.push(req.body)
+  res.json({ message: 'added the todo!' })
+})
+```
+
+## Phase 2: Create the api utilizing postman
+
+Actually integrating the requests with a database (note this assumes the database is already created and tables are created)
+
+```js
+app.get('/api/todos', (req, res) => {
+  knex.raw('SELECT * FROM todos').then((result) => {
+    res.json(result.rows)
+  })
+})
+```
+
+## Phase 3: Create the frontend which will consume (use) this api
+
+Make the react app which will use all these different api endpoints
+
+1. start with dashboard (do all the api things without concerning which user is logged in - will explain tomorrow on Friday)
+2. then move on to login/signup
+3. then adjust your routes to only allow a user to delete their own routes (will explain tomorrow on Friday)
+
+I will be providing the authentication portion of the app - for now I want your to do the following steps:
+
+1. create a react app called client
+
+`npx create-react-app client --template redux`
+
+2. create a backend app (follow the steps below)
+
+   1. mkdir server
+   2. go into server folder and run `npm init -y`
+   3. yarn add express nodemon knex pg
+
+3. resources folder will have several instructions to get started
