@@ -81,14 +81,22 @@ Make the react app which will use all these different api endpoints
 
 ## I will be providing the authentication portion of the app - for now I want you to do the following steps:
 
+### Make the start of the frontend app
+
 1. create a react app called client
 
 `npx create-react-app client --template redux`
 
-2. create a backend app (follow the steps below)
+2. Install the following dependencies
+
+`yarn add axios react-router react-router-dom`
+
+### Make the start of the backend app
+
+1. create a backend express app (follow the steps below)
 
    1. mkdir server
    2. go into server folder and run `npm init -y`
    3. yarn add express nodemon knex pg
 
-3. resources folder will have several instructions to get started
+2. resources folder will have several more instructions to get started (regarding table creation and database hookup)
