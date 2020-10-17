@@ -1,32 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from "axios"
 
-export const todoSlice = createSlice({
-  name: 'todo',
+export const todosSlice = createSlice({
+  name: 'todos',
   initialState: {
-    value: 0,
+    todos: [],
   },
   reducers: {
-    increment: state => {
-      state.value += 1;
-    },
-    decrement: state => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    display: (state, action) => {
+      state.todos = action.payload;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = todoSlice.actions;
+export const { display } = todosSlice.actions;
+
+export const getTodo = () => (dispatch) => {
+  axios.get("/api/todos").then((r) => dispatch(display(r.data)))
+}
 
 
-export const incrementAsync = amount => dispatch => {
-  setTimeout(() => {
-    dispatch(incrementByAmount(amount));
-  }, 1000);
-};
+// export const incrementAsync = amount => dispatch => {
+//   setTimeout(() => {
+//     dispatch(incrementByAmount(amount));
+//   }, 1000);
+// };
 
-export const selectCount = state => state.todo.value;
 
-export default todoSlice.reducer;
+export const selectTodo = (state) => state.todos.todos;
+
+export default todosSlice.reducer;

@@ -1,33 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from "axios"
 
 export const loginSlice = createSlice({
   name: 'login',
   initialState: {
-    value: 0,
+    todos: [],
   },
   reducers: {
-    increment: state => {
-      state.value += 1;
-    },
-    decrement: state => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    display: state => {
+      state.todo = action.payload;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = loginSlice.actions;
+export const { display } = loginSlice.actions;
+
+export const getTodo = () => (dispatch) => {
+  axios.get("/api/todos").then((r) => dispatch(display(r.data)))
+}
 
 
-export const incrementAsync = amount => dispatch => {
-  setTimeout(() => {
-    dispatch(incrementByAmount(amount));
-  }, 1000);
-};
+// export const incrementAsync = amount => dispatch => {
+//   setTimeout(() => {
+//     dispatch(incrementByAmount(amount));
+//   }, 1000);
+// };
 
 
-export const selectCount = state => state.login.value;
+export const selectTodo = (state) => state.login.todos;
 
 export default loginSlice.reducer;
