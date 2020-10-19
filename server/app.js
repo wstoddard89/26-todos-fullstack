@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }))
 const todos = []
 
 app.get('/api/todos', async (req, res) => {
-  const todos = await knex.raw('SELECT * FROM todos')
+  const todos = await knex.raw('SELECT * FROM todos ORDER BY id')
   const todo_rows = todos.rows
   res.json(todo_rows)
 })
@@ -26,20 +26,24 @@ app.get('/api/todos', async (req, res) => {
 app.post('/api/todos', (req, res) => {
   const { description } = req.body
   let status = "active"
-  knex.raw(`INSERT INTO todos (description, status, user_id) VALUES (?, ?, ?)`, [description, status, 1]).then((result => {
+  knex.raw('INSERT INTO todos (description, status, user_id) VALUES (?, ?, ?)', [description, status, 1]).then((result => {
       res.json(result.rows)
     }))
 })
 
-app.delete('/api/todos',  (req, res) => {
-  knex.raw(`DELETE FROM todos WHERE id = ?`, [req.body.id]).then((result => {
-  res.json(result.rows)
+app.delete('/api/todos/:id',  (req, res) => {
+  const { id } = req.params
+  knex.raw('DELETE FROM todos WHERE id = ?', [id]).then((result => {
+    res.json(result.rows)
+  
   }))
 })
 
-app.patch('/api/todos', (req, res) => {
+app.patch('/api/todos/:id', (req, res) => {
   // let status ="active"
-  knex.raw(`UPDATE todos SET description = ?, status = ? WHERE id = ?`, [req.body.description, req.body.status, req.body.id]).then((result => {
+  const id = req.params.id
+  const { status } = req.body
+  knex.raw('UPDATE todos SET status = ? WHERE id = ?', [status, id]).then((result => {
   res.json(result.rows)
   }))
 })
