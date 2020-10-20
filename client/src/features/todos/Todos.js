@@ -2,42 +2,35 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import {
   getTodo,
-  display,
   selectTodo,
   addTodo,
-  deleteTodo,
   removeTodo,
-  updateTodo
+  updateTodo,
 } from "../todos/todosSlice.js"
 
 export default function Todos() {
   const dispatch = useDispatch()
   const todo = useSelector(selectTodo)
-  
 
   const [inputText, setInputText] = useState("")
-  const [status, setStatus] = useState("active")
 
   useEffect(() => {
     dispatch(getTodo(todo))
-    // console.log(todo)
-  }, [])
+  }, [dispatch, todo])
 
   function handleDelete(item) {
-    // e.preventDefault()
     dispatch(removeTodo(item.id))
-    console.log(item.id)
   }
 
   function handleSubmit(e) {
     e.preventDefault()
     dispatch(addTodo(inputText))
+    setInputText("")
   }
-  
+
   function handleUpdate(id, status) {
-    dispatch(updateTodo({id, status}))
+    dispatch(updateTodo({ id, status }))
   }
-  
 
   return (
     <div className="container">
@@ -46,7 +39,7 @@ export default function Todos() {
           onChange={(e) => setInputText(e.target.value)}
           className="todo-input"
           placeholder="Enter your todo here"
-          // value={inputText}
+          value={inputText}
         ></input>
         <button type="submit" className="todo-input-btn">
           Submit
@@ -61,8 +54,24 @@ export default function Todos() {
           <div className="todo-description">{item.description}</div>
           <div className="todo-status-container">
             <div className="todo-status">{item.status}</div>
-            <button className="todo-completed" type="submit" onClick={() => handleUpdate(item.id, 'completed')}>Completed</button>
-            <button className="todo-active" type="submit" onClick={() => handleUpdate(item.id, 'active')}>Active</button>
+
+            {item.status === "active" ? (
+              <button
+                className="todo-completed-btn"
+                type="submit"
+                onClick={() => handleUpdate(item.id, "completed")}
+              >
+                Mark as Completed
+              </button>
+            ) : (
+              <button
+                className="todo-active-btn"
+                type="submit"
+                onClick={() => handleUpdate(item.id, "active")}
+              >
+                Set as Active
+              </button>
+            )}
           </div>
           <button
             className="todo-delete-btn"

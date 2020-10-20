@@ -15,8 +15,6 @@ const knex = require('knex')({
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-const todos = []
-
 app.get('/api/todos', async (req, res) => {
   const todos = await knex.raw('SELECT * FROM todos ORDER BY id')
   const todo_rows = todos.rows
@@ -47,18 +45,6 @@ app.patch('/api/todos/:id', (req, res) => {
   res.json(result.rows)
   }))
 })
-
-
-// -- EXAMPLE --
-// const todos = []
-// app.get('/api/todos', (req, res) => {
-//   res.json(todos)
-// })
-
-// app.post('/api/todos', (req, res) => {
-//   todos.push(req.body)
-//   res.json({ message: 'added the todo!' })
-// })
 
 
 

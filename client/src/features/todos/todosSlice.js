@@ -37,14 +37,6 @@ export const updateTodo = (obj) => (dispatch) => {
   })
 }
 
-
-
-// export const incrementAsync = amount => dispatch => {
-//   setTimeout(() => {
-//     dispatch(incrementByAmount(amount));
-//   }, 1000);
-// };
-
 export const selectTodo = (state) => state.todos.todos
 
 export default todosSlice.reducer
